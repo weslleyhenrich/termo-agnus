@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Termos Enviados — Agnus Corretora</title>
+<style>
+  :root{
+    --navy:#123C5A; --teal:#1E6E7E; --gold:#B8862B; --grey:#5A6472;
+    --light:#EEF3F6; --line:#C7D2DC; --dark:#1F2933;
+    --ok:#1F7A4D; --ok-bg:#E3F3EA; --warn:#8A5A00; --warn-bg:#FBF0D9;
+    --info:#1E5E8A; --info-bg:#E2EEF7; --bad:#A3302A; --bad-bg:#F8E3E1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(160deg,#0e2233 0%,#16354b 100%);color:var(--dark);min-height:100vh}
+  .topbar{background:var(--navy);color:#fff;padding:16px 28px;display:flex;align-items:center;gap:14px;
+    box-shadow:0 2px 14px rgba(0,0,0,.3);position:sticky;top:0;z-index:20}
+  .topbar h1{font-size:17px;letter-spacing:1px;font-weight:700}
+  .topbar span{display:block;font-size:11px;color:#CFE0E8;letter-spacing:.5px}
+  .topbar .sp{flex:1}
+  .topbar a,.topbar button{color:#fff;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);
+    border-radius:8px;padding:8px 13px;font-size:13px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit}
+  .topbar a:hover,.topbar button:hover{background:rgba(255,255,255,.2)}
+  .wrap{max-width:1280px;margin:26px auto;padding:0 22px}
+  .card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 12px 40px rgba(0,0,0,.28)}
+
+  /* login */
+  .login{max-width:380px;margin:80px auto}
+  .login h2{font-size:15px;color:var(--navy);text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  .login p{font-size:12.5px;color:var(--grey);margin-bottom:18px}
+  label{display:block;font-size:12px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.6px;margin-bottom:6px}
+  input,select{width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:9px;font-size:14px;
+    font-family:inherit;color:var(--dark);background:#fbfcfd}
+  input:focus,select:focus{outline:none;border-color:var(--teal);background:#fff;box-shadow:0 0 0 3px rgba(30,110,126,.12)}
+  .btn{padding:12px 16px;border:none;border-radius:10px;cursor:pointer;font-weight:700;font-size:14px;font-family:inherit;
+    background:linear-gradient(135deg,var(--gold),#9c7020);color:#fff}
+  .btn:disabled{opacity:.6;cursor:wait}
+  .login .btn{width:100%;margin-top:14px}
+  .erro{color:var(--bad);font-size:13px;margin-top:12px;min-height:18px}
+
+  /* resumo */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:18px}
+  .stat{background:#fff;border-radius:14px;padding:16px 18px;box-shadow:0 8px 26px rgba(0,0,0,.22);cursor:pointer;border:2px solid transparent}
+  .stat.on{border-color:var(--gold)}
+  .stat b{display:block;font-size:26px;color:var(--navy)}
+  .stat span{font-size:12px;color:var(--grey);text-transform:uppercase;letter-spacing:.5px;font-weight:600}
+
+  .filtros{display:grid;grid-template-columns:1fr 200px auto;gap:12px;align-items:end;margin-bottom:16px}
+  .ghost{background:#fff;color:var(--navy);border:1.5px solid var(--line)}
+  .ghost:hover{border-color:var(--teal)}
+
+  table{width:100%;border-collapse:collapse;font-size:13.5px}
+  th{text-align:left;font-size:11.5px;text-transform:uppercase;letter-spacing:.5px;color:var(--grey);
+    padding:10px 10px;border-bottom:2px solid var(--line);font-weight:700}
+  td{padding:12px 10px;border-bottom:1px solid #E3E9EE;vertical-align:top}
+  tr:hover td{background:#F7FAFB}
+  .nome{font-weight:700;color:var(--navy)}
+  .sub{font-size:12px;color:var(--grey);margin-top:2px;word-break:break-all}
+  .tag{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11.5px;font-weight:700;white-space:nowrap}
+  .t-assinado{background:var(--ok-bg);color:var(--ok)}
+  .t-pendente{background:var(--warn-bg);color:var(--warn)}
+  .t-visualizado{background:var(--info-bg);color:var(--info)}
+  .t-recusado{background:var(--bad-bg);color:var(--bad)}
+  .t-sem_signatario{background:var(--light);color:var(--grey)}
+  .acoes{display:flex;flex-wrap:wrap;gap:6px}
+  .mini{padding:6px 10px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--line);
+    background:#fff;color:var(--navy);font-family:inherit;text-decoration:none;white-space:nowrap}
+  .mini:hover{border-color:var(--teal);color:var(--teal)}
+  .mini:disabled{opacity:.6;cursor:wait}
+  .vazio{text-align:center;color:var(--grey);padding:30px;font-size:14px}
+  .rodape{display:flex;justify-content:space-between;align-items:center;margin-top:16px;font-size:12.5px;color:var(--grey);gap:12px;flex-wrap:wrap}
+  .toast{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;
+    padding:11px 18px;border-radius:10px;font-size:13.5px;box-shadow:0 8px 24px rgba(0,0,0,.35);display:none;z-index:50;max-width:92vw}
+  .hidden{display:none !important}
+
+  @media (max-width:860px){
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .filtros{grid-template-columns:1fr}
+    thead{display:none}
+    table,tbody,tr,td{display:block;width:100%}
+    tr{border:1px solid #E3E9EE;border-radius:12px;margin-bottom:12px;padding:6px 4px}
+    td{border:none;padding:6px 10px}
+    td[data-l]::before{content:attr(data-l);display:block;font-size:11px;text-transform:uppercase;color:var(--grey);font-weight:700;margin-bottom:3px}
+    .topbar{padding:14px 16px}
+    .wrap{padding:0 16px}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div>
+    <h1>AGNUS CORRETORA</h1>
+    <span>Termos LGPD enviados · acompanhamento de assinaturas</span>
+  </div>
+  <div class="sp"></div>
+  <a href="/">Gerar termo</a>
+  <button id="sair" class="hidden" onclick="sair()">Sair</button>
+</div>
+
+<!-- LOGIN -->
+<div id="telaLogin" class="wrap hidden">
+  <form class="card login" onsubmit="entrar(event)">
+    <h2>Área administrativa</h2>
+    <p>Digite a senha para ver os termos enviados para assinatura.</p>
+    <label for="senha">Senha</label>
+    <input id="senha" type="password" autocomplete="current-password" required>
+    <button class="btn" id="btnEntrar" type="submit">Entrar</button>
+    <div class="erro" id="erroLogin"></div>
+  </form>
+</div>
+
+<!-- PAINEL -->
+<div id="telaPainel" class="wrap hidden">
+  <div class="stats">
+    <div class="stat on" data-f="" onclick="filtroCard(this)"><b id="sTodos">0</b><span>Enviados</span></div>
+    <div class="stat" data-f="aguardando_titular" onclick="filtroCard(this)"><b id="sTitular">0</b><span>Aguardando titular</span></div>
+    <div class="stat" data-f="aguardando_corretora" onclick="filtroCard(this)"><b id="sCorretora">0</b><span>Aguardando Talita</span></div>
+    <div class="stat" data-f="concluido" onclick="filtroCard(this)"><b id="sConcluido">0</b><span>Concluídos</span></div>
+  </div>
+
+  <div class="card">
+    <div class="filtros">
+      <div>
+        <label for="busca">Buscar</label>
+        <input id="busca" type="search" placeholder="Nome ou e-mail do titular" oninput="render()">
+      </div>
+      <div>
+        <label for="fStatus">Situação</label>
+        <select id="fStatus" onchange="sincCards();render()">
+          <option value="">Todas</option>
+          <option value="aguardando_titular">Aguardando titular</option>
+          <option value="aguardando_corretora">Aguardando Talita</option>
+          <option value="concluido">Concluídos</option>
+          <option value="recusado">Recusados</option>
+        </select>
+      </div>
+      <button class="btn ghost" onclick="recarregar()">Atualizar</button>
+    </div>
+
+    <table>
+      <thead><tr>
+        <th>Beneficiário</th><th>Enviado em</th><th>Assinatura do titular</th><th>Assinatura da Talita</th><th>Ações</th>
+      </tr></thead>
+      <tbody id="lista"></tbody>
+    </table>
+    <div class="vazio hidden" id="vazio"></div>
+
+    <div class="rodape">
+      <span id="info"></span>
+      <button class="btn ghost hidden" id="maisBtn" onclick="carregarMais()">Carregar mais antigos</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  let docs = [], pagina = 0, temMais = false, carregando = false;
+
+  const ROTULO = { assinado:"Assinado", pendente:"Pendente", visualizado:"Visualizou", recusado:"Recusou", sem_signatario:"—" };
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" }[c]));
+  const fmt = d => d ? new Date(d.replace(" ", "T")).toLocaleString("pt-BR", { dateStyle:"short", timeStyle:"short" }) : "";
+
+  function toast(msg){
+    const t = document.getElementById("toast");
+    t.textContent = msg; t.style.display = "block";
+    clearTimeout(t._h); t._h = setTimeout(() => t.style.display = "none", 3200);
+  }
+
+  function mostra(tela){
+    document.getElementById("telaLogin").classList.toggle("hidden", tela !== "login");
+    document.getElementById("telaPainel").classList.toggle("hidden", tela !== "painel");
+    document.getElementById("sair").classList.toggle("hidden", tela !== "painel");
+    if (tela === "login") setTimeout(() => document.getElementById("senha").focus(), 50);
+  }
+
+  async function api(caminho, opcoes){
+    const r = await fetch(caminho, { credentials:"same-origin", ...opcoes });
+    if (r.status === 401 && !caminho.endsWith("/login")) { mostra("login"); throw new Error("Sessão expirada."); }
+    return r;
+  }
+
+  async function entrar(ev){
+    ev.preventDefault();
+    const btn = document.getElementById("btnEntrar"), erro = document.getElementById("erroLogin");
+    btn.disabled = true; erro.textContent = "";
+    try {
+      const r = await api("/api/admin/login", { method:"POST", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ senha: document.getElementById("senha").value }) });
+      const d = await r.json();
+      if (!d.ok) { erro.textContent = d.error || "Não foi possível entrar."; return; }
+      document.getElementById("senha").value = "";
+      mostra("painel"); recarregar();
+    } catch { erro.textContent = "Falha de conexão."; }
+    finally { btn.disabled = false; }
+  }
+
+  async function sair(){
+    await fetch("/api/admin/logout", { method:"POST" }).catch(() => {});
+    docs = []; mostra("login");
+  }
+
+  function situacaoGeral(d){
+    if (d.titular.status === "recusado" || (d.corretora && d.corretora.status === "recusado")) return "recusado";
+    if (d.concluido) return "concluido";
+    if (d.titular.status !== "assinado") return "aguardando_titular";
+    return "aguardando_corretora";
+  }
+
+  async function buscarPagina(){
+    carregando = true;
+    document.getElementById("info").textContent = "Consultando o Autentique…";
+    try {
+      const r = await api("/api/admin/documentos?pagina=" + (pagina + 1));
+      const d = await r.json();
+      if (!d.ok) { toast(d.error || "Erro ao consultar."); return; }
+      pagina = d.pagina; temMais = d.temMais;
+      docs = docs.concat(d.documentos.map(x => ({ ...x, geral: situacaoGeral(x) })));
+    } catch (e) { toast(e.message); }
+    finally { carregando = false; render(); }
+  }
+
+  function recarregar(){ docs = []; pagina = 0; buscarPagina(); }
+  function carregarMais(){ if (!carregando && temMais) buscarPagina(); }
+
+  function filtroCard(el){ document.getElementById("fStatus").value = el.dataset.f; sincCards(); render(); }
+  function sincCards(){
+    const f = document.getElementById("fStatus").value;
+    document.querySelectorAll(".stat").forEach(s => s.classList.toggle("on", s.dataset.f === f));
+  }
+
+  function tag(s){ return s ? `<span class="tag t-${s.status}">${ROTULO[s.status] || s.status}</span>${s.em ? `<div class="sub">${fmt(s.em)}</div>` : ""}` : `<span class="tag t-sem_signatario">—</span>`; }
+
+  function render(){
+    const q = document.getElementById("busca").value.trim().toLowerCase();
+    const f = document.getElementById("fStatus").value;
+    const conta = k => docs.filter(d => d.geral === k).length;
+    document.getElementById("sTodos").textContent = docs.length;
+    document.getElementById("sTitular").textContent = conta("aguardando_titular");
+    document.getElementById("sCorretora").textContent = conta("aguardando_corretora");
+    document.getElementById("sConcluido").textContent = conta("concluido");
+
+    const vis = docs.filter(d => (!f || d.geral === f) &&
+      (!q || (d.nome + " " + d.titular.nome + " " + d.titular.email).toLowerCase().includes(q)));
+
+    document.getElementById("lista").innerHTML = vis.map((d, i) => {
+      const nome = d.titular.nome || d.nome.replace(/^Termo LGPD\s*-\s*/i, "");
+      const podeAssinar = d.titular.status === "pendente" || d.titular.status === "visualizado";
+      const linkBtn = podeAssinar
+        ? (d.titular.link
+            ? `<button class="mini" onclick="copiar('${esc(d.titular.link)}')">Copiar link</button>`
+            : `<button class="mini" onclick="gerarLink(this,'${esc(d.id)}')">Gerar link</button>`)
+        : "";
+      return `<tr>
+        <td data-l="Beneficiário"><div class="nome">${esc(nome)}</div><div class="sub">${esc(d.titular.email)}</div></td>
+        <td data-l="Enviado em">${esc(fmt(d.criadoEm))}</td>
+        <td data-l="Assinatura do titular">${tag(d.titular)}</td>
+        <td data-l="Assinatura da Talita">${tag(d.corretora)}</td>
+        <td data-l="Ações"><div class="acoes">${linkBtn}
+          <a class="mini" href="/api/admin/baixar?id=${encodeURIComponent(d.id)}">${d.temAssinado ? "PDF assinado" : "PDF"}</a>
+        </div></td>
+      </tr>`;
+    }).join("");
+
+    const vazio = document.getElementById("vazio");
+    vazio.classList.toggle("hidden", vis.length > 0 || carregando);
+    vazio.textContent = docs.length ? "Nenhum termo com esse filtro nos já carregados." : "Nenhum termo LGPD encontrado.";
+    document.getElementById("info").textContent = carregando ? "Consultando o Autentique…" :
+      `${vis.length} de ${docs.length} termos carregados` + (temMais ? " · há documentos mais antigos" : "");
+    document.getElementById("maisBtn").classList.toggle("hidden", !temMais);
+  }
+
+  async function copiar(link){
+    try { await navigator.clipboard.writeText(link); toast("Link copiado: " + link); }
+    catch { prompt("Copie o link:", link); }
+  }
+
+  async function gerarLink(btn, id){
+    const d = docs.find(x => x.id === id);
+    if (!d || !d.titular.public_id) return toast("Signatário não encontrado.");
+    btn.disabled = true; btn.textContent = "Gerando…";
+    try {
+      const r = await api("/api/admin/link", { method:"POST", headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ public_id: d.titular.public_id }) });
+      const res = await r.json();
+      if (!res.ok) { toast(res.error || "Erro ao gerar link."); return; }
+      d.titular.link = res.link; render(); copiar(res.link);
+    } catch (e) { toast(e.message); }
+    finally { btn.disabled = false; btn.textContent = "Gerar link"; }
+  }
+
+  // Ao abrir: se já houver sessão válida, vai direto para a lista.
+  fetch("/api/admin/sessao", { credentials:"same-origin" })
+    .then(r => { if (r.ok) { mostra("painel"); recarregar(); } else mostra("login"); })
+    .catch(() => mostra("login"));
+</script>
+</body>
+</html>

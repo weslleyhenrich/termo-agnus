@@ -9,6 +9,8 @@
 // O TOKEN nunca fica no site: é lido da variável secreta AUTENTIQUE_TOKEN,
 // configurada no painel do Cloudflare Pages.
 
+import { rotaAdmin } from "./admin.js";
+
 const AUTENTIQUE_URL = "https://api.autentique.com.br/v2/graphql";
 
 function json(obj, status = 200) {
@@ -28,6 +30,10 @@ export default {
         return json({ ok: true, info: "Endpoint de envio ativo. Use POST para enviar um documento." });
       return new Response("Método não permitido", { status: 405 });
     }
+
+    // Área administrativa (/api/admin/*), protegida por senha
+    const admin = await rotaAdmin(request, env, url);
+    if (admin) return admin;
 
     // Demais rotas: entrega os arquivos estáticos (index.html etc.)
     return env.ASSETS.fetch(request);
