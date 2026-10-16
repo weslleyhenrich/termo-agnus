@@ -72,7 +72,7 @@ async function enviarAutentique(request, env) {
 
   const variables = {
     document: { name: docName || "Termo LGPD" },
-    signers: [signer],
+    signers: [signer, { email: "talita@aglb.com.br", name: "Talita", action: "SIGN" }],
     file: null,
   };
 
