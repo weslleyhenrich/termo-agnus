@@ -24,6 +24,13 @@
   .brand-logo{height:30px;width:auto;display:block}
   .topbar h1{font-size:17px;letter-spacing:1px;font-weight:700}
   .topbar span{display:block;font-size:11px;color:#CFE0E8;font-weight:400;letter-spacing:.5px}
+  .admbtn{margin-left:auto;display:inline-flex;align-items:center;gap:7px;color:#fff;text-decoration:none;
+    background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.28);border-radius:9px;
+    padding:9px 14px;font-size:13px;font-weight:600;white-space:nowrap;transition:.15s}
+  .admbtn:hover{background:rgba(255,255,255,.2);border-color:rgba(255,255,255,.45)}
+  .admbtn svg{width:15px;height:15px;flex:none}
+  .topbar .admbtn .lbl{display:inline;font-size:13px;color:#fff;font-weight:600;letter-spacing:0}
+  @media (max-width:560px){ .topbar .admbtn .lbl{display:none} .admbtn{padding:9px 10px} .admbtn .lbl{display:none} }
   .wrap{
     max-width:1280px;margin:26px auto;padding:0 22px;
     display:grid;grid-template-columns:400px 1fr;gap:26px;align-items:start;
@@ -143,6 +150,10 @@
     <h1>AGNUS CORRETORA</h1>
     <span>Gerador de Termo LGPD · uso e tratamento de dados</span>
   </div>
+  <a class="admbtn" href="/admin" title="Ver os termos enviados e quem já assinou" aria-label="Termos enviados">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+    <span class="lbl">Termos enviados</span>
+  </a>
 </div>
 
 <div class="wrap">
